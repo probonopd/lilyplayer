@@ -1,7 +1,14 @@
-all clean scan-build:
+all lilyplayer:
 	${MAKE} -C ./src "$@"
 
-appimage: all
+clean:
+	${MAKE} -C ./src "$@"
+	${MAKE} -C ./3rd-party/rtmidi/ "$@"
+
+install: lilyplayer
+	./make-install.sh ${DESTDIR}
+
+appimage: lilyplayer
 	./make-appimage.sh
 
-.PHONY: all clean scan-build appimage
+.PHONY: all lilyplayer clean appimage install
